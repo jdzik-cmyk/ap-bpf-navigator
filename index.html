@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AP Business with Personal Finance — CED Navigator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #ffffff;
+    --bg2:       #f6f7f9;
+    --bg3:       #eef0f4;
+    --border:    #e2e5eb;
+    --border2:   #cdd1da;
+    --text:      #111318;
+    --text2:     #4a5060;
+    --text3:     #8a90a0;
+    --blue:      #185FA5;
+    --blue-bg:   #e8f1fb;
+    --blue-text: #0c3d72;
+    --teal:      #0F6E56;
+    --teal-bg:   #e1f5ee;
+    --teal-text: #085041;
+    --amber:     #854F0B;
+    --amber-bg:  #faeeda;
+    --amber-text:#633806;
+    --coral:     #993C1D;
+    --coral-bg:  #faece7;
+    --coral-text:#712B13;
+    --purple:    #534AB7;
+    --purple-bg: #eeedfe;
+    --purple-text:#3C3489;
+    --green-bg:  #eaf3de;
+    --green-text:#27500A;
+    --radius:    8px;
+    --radius-lg: 12px;
+    --shadow:    0 1px 3px rgba(0,0,0,.08), 0 1px 8px rgba(0,0,0,.04);
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--bg2);
+    min-height: 100vh;
+  }
+
+  /* ── TOP HEADER ── */
+  .site-header {
+    background: var(--blue);
+    color: #fff;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 1px 0 rgba(255,255,255,.1);
+  }
+  .site-header h1 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+  .site-header .sub {
+    font-size: 12px;
+    opacity: .65;
+    margin-left: 12px;
+    font-weight: 400;
+  }
+  .header-left { display: flex; align-items: baseline; gap: 0; }
+  .badge-ap {
+    background: rgba(255,255,255,.18);
+    border: 1px solid rgba(255,255,255,.3);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: .04em;
+    margin-right: 10px;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    min-height: calc(100vh - 56px);
+  }
+
+  /* ── SIDEBAR NAV ── */
+  .sidebar {
+    width: 200px;
+    flex-shrink: 0;
+    padding: 20px 0;
+    position: sticky;
+    top: 56px;
+    height: calc(100vh - 56px);
+    overflow-y: auto;
+    background: var(--bg);
+    border-right: 1px solid var(--border);
+  }
+  .sidebar-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    padding: 0 16px;
+    margin-bottom: 6px;
+    margin-top: 16px;
+  }
+  .sidebar-label:first-child { margin-top: 0; }
+  .nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text2);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 0;
+    transition: background .12s, color .12s;
+  }
+  .nav-btn:hover { background: var(--bg2); color: var(--text); }
+  .nav-btn.active { background: var(--blue-bg); color: var(--blue-text); font-weight: 600; }
+  .nav-btn .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main {
+    flex: 1;
+    padding: 24px;
+    overflow-x: hidden;
+  }
+
+  /* ── PANELS ── */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* ── TYPOGRAPHY ── */
+  .page-title {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -.02em;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  .page-subtitle {
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 20px;
+  }
+  .section-head {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px;
+    margin-bottom: 8px;
+    box-shadow: var(--shadow);
+  }
+  .card h3 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+  .card p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+
+  /* ── HIGHLIGHT BOX ── */
+  .highlight {
+    background: var(--blue-bg);
+    border: 1px solid #b8d4f0;
+    border-radius: var(--radius);
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--blue-text);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  /* ── BADGES ── */
+  .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .badge-blue   { background: var(--blue-bg);   color: var(--blue-text); }
+  .badge-teal   { background: var(--teal-bg);   color: var(--teal-text); }
+  .badge-amber  { background: var(--amber-bg);  color: var(--amber-text); }
+  .badge-coral  { background: var(--coral-bg);  color: var(--coral-text); }
+  .badge-purple { background: var(--purple-bg); color: var(--purple-text); }
+  .badge-green  { background: var(--green-bg);  color: var(--green-text); }
+
+  /* ── METRICS GRID ── */
+  .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-bottom: 20px; }
+  .metric { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; box-shadow: var(--shadow); }
+  .metric .label { font-size: 11px; color: var(--text3); font-weight: 500; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; }
+  .metric .val { font-size: 24px; font-weight: 600; color: var(--text); letter-spacing: -.02em; }
+  .metric .sub { font-size: 12px; color: var(--text2); margin-top: 3px; line-height: 1.4; }
+
+  /* ── TABLE ROWS ── */
+  .tbl { width: 100%; border-collapse: collapse; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .tbl th { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); background: var(--bg2); padding: 9px 12px; text-align: left; border-bottom: 1px solid var(--border); }
+  .tbl td { font-size: 13px; padding: 10px 12px; color: var(--text); border-bottom: 1px solid var(--border); vertical-align: middle; }
+  .tbl tr:last-child td { border-bottom: none; }
+  .tbl tr:hover td { background: var(--bg2); }
+
+  /* ── WEIGHT BAR ── */
+  .wbar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; width: 80px; }
+  .wbar-fill { height: 100%; background: var(--blue); border-radius: 3px; }
+
+  /* ── TOPIC ROWS ── */
+  .topic-list { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); margin-bottom: 16px; }
+  .topic-row { display: grid; grid-template-columns: 52px 1fr 160px 44px; gap: 0; border-bottom: 1px solid var(--border); }
+  .topic-row:last-child { border-bottom: none; }
+  .topic-row > div { padding: 10px 12px; font-size: 13px; }
+  .topic-row .t-num { background: var(--bg2); font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--text2); border-right: 1px solid var(--border); display: flex; align-items: center; justify-content: center; }
+  .topic-row .t-name { color: var(--text); font-weight: 500; }
+  .topic-row .t-case { color: var(--text2); font-size: 12px; font-style: italic; border-left: 1px solid var(--border); display: flex; align-items: center; }
+  .topic-row .t-periods { color: var(--text3); font-size: 12px; border-left: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; }
+  .topic-hdr { display: grid; grid-template-columns: 52px 1fr 160px 44px; gap: 0; background: var(--bg2); border-bottom: 1px solid var(--border); }
+  .topic-hdr > div { padding: 7px 12px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); }
+
+  /* ── SKILL BLOCKS ── */
+  .skill-block { border-left: 3px solid var(--blue); padding: 12px 16px; margin-bottom: 10px; background: var(--bg); border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow); border-top: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .skill-block h4 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+  .skill-block .desc { font-size: 12px; color: var(--text2); margin-bottom: 10px; font-style: italic; }
+  .skill-item { display: flex; gap: 10px; margin-bottom: 7px; font-size: 13px; color: var(--text2); line-height: 1.5; }
+  .skill-code { font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--blue); min-width: 32px; padding-top: 1px; }
+
+  /* ── PROJECT TASKS ── */
+  .task-list { margin-bottom: 12px; }
+  .proj-task { display: flex; gap: 10px; margin-bottom: 8px; font-size: 13px; color: var(--text2); line-height: 1.5; align-items: flex-start; }
+  .task-num { width: 24px; height: 24px; border-radius: 50%; background: var(--blue-bg); color: var(--blue-text); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── PHASE BLOCKS ── */
+  .phase { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 10px; box-shadow: var(--shadow); }
+  .phase-head { padding: 11px 16px; background: var(--bg2); font-size: 13px; font-weight: 600; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+  .phase-body { padding: 14px 16px; }
+
+  /* ── ACCORDION ── */
+  .acc { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 8px; box-shadow: var(--shadow); }
+  .acc-btn { width: 100%; text-align: left; background: var(--bg); border: none; padding: 12px 16px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: var(--text); font-family: inherit; transition: background .1s; }
+  .acc-btn:hover { background: var(--bg2); }
+  .acc-arrow { transition: transform .2s; font-size: 16px; color: var(--text3); }
+  .acc-content { display: none; padding: 12px 16px 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text2); line-height: 1.6; background: var(--bg); }
+  .acc-content.open { display: block; }
+  .acc-content strong { color: var(--text); font-weight: 600; }
+
+  /* ── UNIT SWITCHER ── */
+  .unit-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+  .unit-tab { padding: 6px 16px; font-size: 13px; font-weight: 600; border-radius: 20px; border: 1.5px solid transparent; cursor: pointer; transition: all .15s; font-family: inherit; }
+
+  /* ── TWO COL ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  /* ── CANVAS ELEMENTS ── */
+  .canvas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; margin-bottom: 16px; }
+
+  /* ── SEARCH ── */
+  .search-wrap { position: relative; margin-bottom: 16px; }
+  .search-wrap input { width: 100%; padding: 10px 16px 10px 40px; font-size: 14px; font-family: inherit; border: 1px solid var(--border2); border-radius: var(--radius); background: var(--bg); color: var(--text); outline: none; transition: border .15s; }
+  .search-wrap input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(24,95,165,.1); }
+  .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 16px; pointer-events: none; }
+  .search-results { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); display: none; }
+  .search-item { padding: 10px 14px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background .1s; }
+  .search-item:last-child { border-bottom: none; }
+  .search-item:hover { background: var(--bg2); }
+  .search-item .s-title { font-size: 13px; font-weight: 600; color: var(--text); }
+  .search-item .s-loc { font-size: 11px; color: var(--text3); margin-top: 2px; }
+  .search-hint { font-size: 13px; color: var(--text3); margin-top: 8px; }
+
+  /* ── FRQ CALLOUT ── */
+  .frq-q { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 6px; display: grid; grid-template-columns: 36px 1fr 70px 70px; }
+  .frq-q > div { padding: 10px 12px; font-size: 13px; border-right: 1px solid var(--border); }
+  .frq-q > div:last-child { border-right: none; }
+  .frq-q.hdr > div { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--text3); background: var(--bg2); }
+  .frq-num { font-weight: 700; color: var(--blue); background: var(--blue-bg); display: flex; align-items: center; justify-content: center; }
+  .frq-wt { font-weight: 600; color: var(--blue-text); display: flex; align-items: center; }
+  .frq-tm { color: var(--text2); display: flex; align-items: center; font-size: 12px; }
+
+  /* ── FOOTER ── */
+  .footer { text-align: center; font-size: 11px; color: var(--text3); padding: 24px; margin-top: 24px; border-top: 1px solid var(--border); }
+
+  @media (max-width: 680px) {
+    .sidebar { display: none; }
+    .main { padding: 16px; }
+    .metric-grid { grid-template-columns: 1fr 1fr; }
+    .two-col { grid-template-columns: 1fr; }
+    .topic-row { grid-template-columns: 44px 1fr; }
+    .topic-row .t-case, .topic-row .t-periods { display: none; }
+    .topic-hdr { display: none; }
+    .frq-q { grid-template-columns: 32px 1fr 60px; }
+    .frq-tm { display: none; }
+    .mobile-nav { display: flex !important; }
+  }
+  .mobile-nav {
+    display: none;
+    overflow-x: auto;
+    gap: 4px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 56px;
+    z-index: 90;
+  }
+  .mobile-nav button {
+    white-space: nowrap;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 20px;
+    border: 1.5px solid var(--border2);
+    background: none;
+    color: var(--text2);
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .mobile-nav button.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-left">
+    <span class="badge-ap">AP</span>
+    <h1>Business with Personal Finance</h1>
+    <span class="sub">CED Navigator · Effective Fall 2026</span>
+  </div>
+  <span style="font-size:12px;opacity:.5">Padua Franciscan High School</span>
+</header>
+
+<!-- Mobile nav -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="active" onclick="showTab('overview')">Overview</button>
+  <button onclick="showTab('units')">Units 1–5</button>
+  <button onclick="showTab('skills')">Skills</button>
+  <button onclick="showTab('projects')">Projects</button>
+  <button onclick="showTab('exam')">Exam</button>
+  <button onclick="showTab('cases')">Cases</button>
+  <button onclick="showTab('search')">Search</button>
+</div>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-label">Navigation</div>
+    <button class="nav-btn active" onclick="showTab('overview')"><span class="dot" style="background:#185FA5"></span>Overview</button>
+    <button class="nav-btn" onclick="showTab('units')"><span class="dot" style="background:#185FA5"></span>Units 1–5</button>
+    <button class="nav-btn" onclick="showTab('skills')"><span class="dot" style="background:#0F6E56"></span>Skills</button>
+    <button class="nav-btn" onclick="showTab('projects')"><span class="dot" style="background:#854F0B"></span>Projects</button>
+    <button class="nav-btn" onclick="showTab('exam')"><span class="dot" style="background:#993C1D"></span>Exam</button>
+    <button class="nav-btn" onclick="showTab('cases')"><span class="dot" style="background:#534AB7"></span>Cases</button>
+    <button class="nav-btn" onclick="showTab('search')"><span class="dot" style="background:#888"></span>Search</button>
+    <div class="sidebar-label">Quick Units</div>
+    <button class="nav-btn" onclick="showTab('units');showUnit('u1')" style="padding-left:28px">Unit 1 — Business</button>
+    <button class="nav-btn" onclick="showTab('units');showUnit('u2')" style="padding-left:28px">Unit 2 — Marketing</button>
+    <button class="nav-btn" onclick="showTab('units');showUnit('u3')" style="padding-left:28px">Unit 3 — Finance</button>
+    <button class="nav-btn" onclick="showTab('units');showUnit('u4')" style="padding-left:28px">Unit 4 — Management</button>
+    <button class="nav-btn" onclick="showTab('units');showUnit('u5')" style="padding-left:28px">Unit 5 — Personal Finance</button>
+  </nav>
+
+  <!-- Main content -->
+  <main class="main">
+
+    <!-- ══ OVERVIEW ══ -->
+    <div id="tab-overview" class="panel active">
+      <div class="page-title">Course Overview</div>
+      <div class="page-subtitle">AP Business with Personal Finance — College-level introductory business &amp; personal finance</div>
+
+      <div class="highlight">
+        AP Business with Personal Finance is a one-semester, college-level equivalent course covering entrepreneurship, marketing, finance, accounting, and management — plus personal finance. <strong>Units 1–4 are assessed on the AP Exam.</strong> Unit 5 (personal finance) may be taught before or after the exam depending on your school's calendar.
+      </div>
+
+      <div class="metric-grid">
+        <div class="metric"><div class="label">Total class periods</div><div class="val">~160</div><div class="sub">Based on 45-min periods, 5 days/week. Adjust for block scheduling.</div></div>
+        <div class="metric"><div class="label">Exam length</div><div class="val">2h 40m</div><div class="sub">60 multiple-choice + 4 free-response questions</div></div>
+        <div class="metric"><div class="label">Major projects</div><div class="val">2</div><div class="sub">Business Canvas Project (U1–4) + Financial Advisor Project (U5)</div></div>
+        <div class="metric"><div class="label">Skill categories</div><div class="val">5</div><div class="sub">Concept Application, Entrepreneurship, Decision Making, Communication, Collaboration</div></div>
+      </div>
+
+      <div class="section-head">Course at a glance</div>
+      <table class="tbl">
+        <thead>
+          <tr><th>Unit</th><th>Title</th><th>Periods</th><th>Exam weight</th><th>Visual</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-blue">Unit 1</span></td>
+            <td style="cursor:pointer;color:var(--blue);font-weight:500" onclick="showTab('units');showUnit('u1')">Businesses, Competition &amp; New Ideas</td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">~37</td>
+            <td>20–30%</td>
+            <td><div class="wbar"><div class="wbar-fill" style="width:75%"></div></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-teal">Unit 2</span></td>
+            <td style="cursor:pointer;color:var(--blue);font-weight:500" onclick="showTab('units');showUnit('u2')">Marketing</td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">~34</td>
+            <td>20–30%</td>
+            <td><div class="wbar"><div class="wbar-fill" style="width:75%"></div></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-amber">Unit 3</span></td>
+            <td style="cursor:pointer;color:var(--blue);font-weight:500" onclick="showTab('units');showUnit('u3')">Personal Finance + Business Finance &amp; Accounting</td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">~35</td>
+            <td>25–35%</td>
+            <td><div class="wbar"><div class="wbar-fill" style="width:90%"></div></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-coral">Unit 4</span></td>
+            <td style="cursor:pointer;color:var(--blue);font-weight:500" onclick="showTab('units');showUnit('u4')">Management &amp; Strategy</td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">~30</td>
+            <td>15–20%</td>
+            <td><div class="wbar"><div class="wbar-fill" style="width:55%"></div></div></td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-purple">Unit 5</span></td>
+            <td style="cursor:pointer;color:var(--blue);font-weight:500" onclick="showTab('units');showUnit('u5')">Personal Goals, Budgeting &amp; Investing</td>
+            <td style="font-family:'DM Mono',monospace;font-size:12px">~24 (+20)</td>
+            <td><span style="color:var(--text3);font-size:12px">Not on exam</span></td>
+            <td><span style="color:var(--text3);font-size:12px">—</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="section-head">Key reminders</div>
+      <div class="two-col">
+        <div class="card"><h3>Pacing note</h3><p>All period counts assume 45-minute periods, 5 days/week. Adjust proportionally for 40-minute periods or block scheduling.</p></div>
+        <div class="card"><h3>Unit 5 flexibility</h3><p>Unit 5 is not assessed on the AP Exam and may be taught before or after the exam based on your school's academic calendar.</p></div>
+        <div class="card"><h3>Business cases</h3><p>Cases are a required course component, but the specific AP-provided cases are not required and will not be directly assessed on the exam.</p></div>
+        <div class="card"><h3>AP Career Kickstart</h3><p>Students with qualifying AP Exam scores earn an employer-endorsed credential in addition to potential college credit.</p></div>
+      </div>
+    </div>
+
+    <!-- ══ UNITS ══ -->
+    <div id="tab-units" class="panel">
+      <div class="page-title">Units 1–5</div>
+      <div class="page-subtitle">Select a unit to view topics, cases, period counts, and project tasks.</div>
+      <div class="unit-tabs">
+        <button id="utab-u1" class="unit-tab" style="background:var(--blue-bg);color:var(--blue-text);border-color:var(--blue)" onclick="showUnit('u1')">Unit 1 — Business</button>
+        <button id="utab-u2" class="unit-tab" style="background:none;color:var(--teal);border-color:var(--teal-bg)" onclick="showUnit('u2')">Unit 2 — Marketing</button>
+        <button id="utab-u3" class="unit-tab" style="background:none;color:var(--amber);border-color:var(--amber-bg)" onclick="showUnit('u3')">Unit 3 — Finance</button>
+        <button id="utab-u4" class="unit-tab" style="background:none;color:var(--coral);border-color:var(--coral-bg)" onclick="showUnit('u4')">Unit 4 — Management</button>
+        <button id="utab-u5" class="unit-tab" style="background:none;color:var(--purple);border-color:var(--purple-bg)" onclick="showUnit('u5')">Unit 5 — Personal Finance</button>
+      </div>
+
+      <!-- Unit 1 -->
+      <div id="unit-u1" class="unit-content">
+        <div class="card" style="margin-bottom:10px;border-left:4px solid var(--blue)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+            <div><h3 style="font-size:16px">Unit 1: Businesses, Competition, and New Ideas</h3><p style="margin-top:4px;font-size:13px;color:var(--text2)">~37 class periods · 20–30% AP Exam weighting · ~12–14 days for Business Canvas Project</p></div>
+            <span class="badge badge-blue">Exam-assessed</span>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:10px"><h3>Developing understanding</h3><p style="margin-top:5px">From a small neighborhood shop to a large global corporation, all businesses share key characteristics: They start as an idea and seek to achieve viability by selling products that address customers' problems, needs, or wants. Unit 1 introduces students to the world of business — how businesses get started, how they're organized, how they compete, how ethics shape decision making, and how external factors affect success. Students also consider how these same forces influence individuals' career opportunities, income, and personal choices about work.</p></div>
+        <div class="section-head">Topics at a glance</div>
+        <div class="topic-list">
+          <div class="topic-hdr"><div>#</div><div>Topic</div><div>Business case</div><div>Periods</div></div>
+          <div class="topic-row"><div class="t-num">1.1</div><div class="t-name">What Is a Business?</div><div class="t-case">Bombas</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">1.2</div><div class="t-name">Markets and Competitive Advantage</div><div class="t-case">Incredible Health</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">1.3</div><div class="t-name">PESTEL Factors and the Business Environment</div><div class="t-case">Corley Plumbing</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">1.4</div><div class="t-name">How Do Business Ideas Originate?</div><div class="t-case">Malama ia Floral Design</div><div class="t-periods">6</div></div>
+          <div class="topic-row"><div class="t-num">1.5</div><div class="t-name">Vision</div><div class="t-case">Beekeeper's Daughter</div><div class="t-periods">3</div></div>
+          <div class="topic-row"><div class="t-num">1.6</div><div class="t-name">Business Ethics</div><div class="t-case">—</div><div class="t-periods">2</div></div>
+          <div class="topic-row"><div class="t-num">1.7</div><div class="t-name">Organization, Roles, and Responsibilities</div><div class="t-case">Pearson 1860</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">1.8</div><div class="t-name">Supply Chains</div><div class="t-case">—</div><div class="t-periods">5</div></div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin:-8px 0 16px">Period counts include BCP activities and personal finance standards. Personal finance: Earning Income 12-3, 12-5, 12-6, 12-11</p>
+        <div class="section-head">Business Canvas Project tasks (Unit 1)</div>
+        <div class="task-list">
+          <div class="proj-task"><div class="task-num">1</div><div>Identify and describe a customer's problem, need, or want.</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Develop a plan to seek competitive advantage in a potential market; apply the PESTEL framework to evaluate market attractiveness and risks.</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Conduct customer interviews to validate the problem, need, or want.</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Develop a solution to address a potential customer's problem, need, or want.</div></div>
+          <div class="proj-task"><div class="task-num">5</div><div>Formulate and test a business hypothesis related to problem-solution fit.</div></div>
+          <div class="proj-task"><div class="task-num">6</div><div>Develop a vision statement and a mission statement.</div></div>
+          <div class="proj-task"><div class="task-num">7</div><div>Develop a production process and a supply chain plan.</div></div>
+          <div class="proj-task"><div class="task-num">8</div><div>Commit to a business idea to pursue and revise the market analysis (end of unit).</div></div>
+        </div>
+        <div class="card"><h3>AP Exam preparation tip</h3><p style="margin-top:5px">Unit 1 introduces core terminology — value, competitive advantage, differentiation, risk — that recurs throughout the exam. Questions ask students to describe factors affecting businesses and individuals and explain how and why businesses pursue specific goals and strategies.</p></div>
+      </div>
+
+      <!-- Unit 2 -->
+      <div id="unit-u2" class="unit-content" style="display:none">
+        <div class="card" style="margin-bottom:10px;border-left:4px solid var(--teal)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+            <div><h3 style="font-size:16px">Unit 2: Marketing</h3><p style="margin-top:4px;font-size:13px;color:var(--text2)">~34 class periods · 20–30% AP Exam weighting · ~5–6 days for Business Canvas Project</p></div>
+            <span class="badge badge-blue">Exam-assessed</span>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:10px"><h3>Developing understanding</h3><p style="margin-top:5px">What separates a successful product launch from a failure? Unit 2 introduces students to the critical role marketing plays in a business's success. Students explore how businesses identify target customers, research markets, develop products, set prices, select distribution channels, and craft promotional strategies — all with the goal of satisfying customer needs profitably.</p></div>
+        <div class="section-head">Topics at a glance</div>
+        <div class="topic-list">
+          <div class="topic-hdr"><div>#</div><div>Topic</div><div>Business case</div><div>Periods</div></div>
+          <div class="topic-row"><div class="t-num">2.1</div><div class="t-name">Marketing to Customers</div><div class="t-case">Token of Trust</div><div class="t-periods">—</div></div>
+          <div class="topic-row"><div class="t-num">2.2</div><div class="t-name">Consumer Behavior</div><div class="t-case">Gong cha / New Coke</div><div class="t-periods">—</div></div>
+          <div class="topic-row"><div class="t-num">2.3</div><div class="t-name">Market Research</div><div class="t-case">—</div><div class="t-periods">—</div></div>
+          <div class="topic-row"><div class="t-num">2.4</div><div class="t-name">Product</div><div class="t-case">siggi's</div><div class="t-periods">—</div></div>
+          <div class="topic-row"><div class="t-num">2.5</div><div class="t-name">Price</div><div class="t-case">Sega</div><div class="t-periods">—</div></div>
+          <div class="topic-row"><div class="t-num">2.6</div><div class="t-name">Place and Channels</div><div class="t-case">Stanley / Hestia Construction</div><div class="t-periods">—</div></div>
+          <div class="topic-row"><div class="t-num">2.9</div><div class="t-name">Promotion and Marketing Communications</div><div class="t-case">—</div><div class="t-periods">—</div></div>
+        </div>
+        <div class="section-head">Business Canvas Project tasks (Unit 2)</div>
+        <div class="task-list">
+          <div class="proj-task"><div class="task-num">1</div><div>Develop a target customer profile based on market research findings.</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Design a minimum viable product (MVP) to assess product-market fit.</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Test pricing strategy with customers via interviews or surveys.</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Develop a marketing plan informed by customer research.</div></div>
+        </div>
+        <div class="card"><h3>AP Exam preparation tip</h3><p style="margin-top:5px">Unit 2 introduces the marketing mix (4 Ps) and consumer behavior concepts. Exam questions frequently ask students to apply these frameworks to real business scenarios and evaluate trade-offs in marketing decisions.</p></div>
+      </div>
+
+      <!-- Unit 3 -->
+      <div id="unit-u3" class="unit-content" style="display:none">
+        <div class="card" style="margin-bottom:10px;border-left:4px solid var(--amber)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+            <div><h3 style="font-size:16px">Unit 3: Personal Saving &amp; Borrowing + Business Finance &amp; Accounting</h3><p style="margin-top:4px;font-size:13px;color:var(--text2)">~35 class periods total · 25–35% AP Exam weighting (highest-weighted unit) · ~5–6 days for BCP</p></div>
+            <span class="badge badge-blue">Exam-assessed</span>
+          </div>
+        </div>
+        <div class="section-head">Part 1: Personal Saving and Borrowing (~6 periods)</div>
+        <div class="topic-list">
+          <div class="topic-hdr"><div>#</div><div>Topic</div><div>Business case</div><div>Periods</div></div>
+          <div class="topic-row"><div class="t-num">3.1</div><div class="t-name">Saving for Future Purchases</div><div class="t-case">—</div><div class="t-periods">3</div></div>
+          <div class="topic-row"><div class="t-num">3.2</div><div class="t-name">Borrowing, Credit, and Debt</div><div class="t-case">—</div><div class="t-periods">3</div></div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin:-8px 0 16px">Personal finance standards: Saving 12-1–12-9, Credit 12-1–12-13, Earning Income 12-9/12-10, Investing 12-2, Spending 12-2</p>
+        <div class="section-head">Part 2: Business Finance and Accounting (~29 periods)</div>
+        <div class="topic-list">
+          <div class="topic-hdr"><div>#</div><div>Topic</div><div>Business case</div><div>Periods</div></div>
+          <div class="topic-row"><div class="t-num">3.3</div><div class="t-name">Accounting and Financial Management</div><div class="t-case">—</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">3.4</div><div class="t-name">Business Expenses</div><div class="t-case">DK Coffee Lab, Pt 1</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">3.5</div><div class="t-name">Financial Capital</div><div class="t-case">DK Coffee Lab, Pt 2</div><div class="t-periods">5</div></div>
+          <div class="topic-row"><div class="t-num">3.6</div><div class="t-name">The Income Statement</div><div class="t-case">Hershey</div><div class="t-periods">5</div></div>
+          <div class="topic-row"><div class="t-num">3.7</div><div class="t-name">The Balance Sheet and Net Worth</div><div class="t-case">DCH / DK Coffee Lab Pt 3</div><div class="t-periods">3</div></div>
+          <div class="topic-row"><div class="t-num">3.8</div><div class="t-name">The Cash Flow Statement</div><div class="t-case">AANE</div><div class="t-periods">3</div></div>
+          <div class="topic-row"><div class="t-num">3.9</div><div class="t-name">Ethics and Financial Reporting</div><div class="t-case">Yardley</div><div class="t-periods">3</div></div>
+        </div>
+        <div class="section-head">Business Canvas Project tasks (Unit 3)</div>
+        <div class="task-list">
+          <div class="proj-task"><div class="task-num">1</div><div>Determine startup costs and initial expenses associated with launching a new business/product.</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Determine potential source(s) of financial capital.</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Develop a pitch to prospective lenders or investors.</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Develop an actual or projected income statement for the business, including a revenue projection.</div></div>
+        </div>
+      </div>
+
+      <!-- Unit 4 -->
+      <div id="unit-u4" class="unit-content" style="display:none">
+        <div class="card" style="margin-bottom:10px;border-left:4px solid var(--coral)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+            <div><h3 style="font-size:16px">Unit 4: Management and Strategy</h3><p style="margin-top:4px;font-size:13px;color:var(--text2)">~30 class periods · 15–20% AP Exam weighting · ~15–16 days for Business Canvas Project</p></div>
+            <span class="badge badge-blue">Exam-assessed</span>
+          </div>
+        </div>
+        <div class="card" style="margin-bottom:10px"><h3>Developing understanding</h3><p style="margin-top:5px">Unit 4 shifts focus to the internal workings of a business — how it is managed, how performance is measured, and how strategic decisions are made. Students examine leadership styles, KPIs, and the strategic frameworks businesses use to navigate competitive markets, including Porter's Five Forces and SWOT analysis.</p></div>
+        <div class="section-head">Topics at a glance</div>
+        <div class="topic-list">
+          <div class="topic-hdr"><div>#</div><div>Topic</div><div>Business case</div><div>Periods</div></div>
+          <div class="topic-row"><div class="t-num">4.1</div><div class="t-name">Management and Leadership</div><div class="t-case">Assort Health / Canva</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">4.2</div><div class="t-name">Evaluating Performance Using KPIs</div><div class="t-case">BREAUX Capital</div><div class="t-periods">3</div></div>
+          <div class="topic-row"><div class="t-num">4.3</div><div class="t-name">Strategy and Decision Making</div><div class="t-case">ExpressionMed</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">4.4</div><div class="t-name">Strategic Frameworks: Porter's Five Forces and SWOT</div><div class="t-case">Crepes &amp; Waffles / Square Meal Feeds</div><div class="t-periods">6</div></div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin:-8px 0 16px">Remaining ~13 periods for BCP tasks. Personal finance: Earning Income 12-1–12-4, Managing Risk 12-5/12-6</p>
+        <div class="section-head">Business Canvas Project tasks (Unit 4)</div>
+        <div class="task-list">
+          <div class="proj-task"><div class="task-num">1</div><div>Identify skills and core competencies.</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Identify KPIs and benchmarks for customer, market, operations, and finance goals.</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Make a strategic decision to address a problem or opportunity using the PACED model.</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Use Porter's Five Forces and SWOT analysis to evaluate competitive landscape and internal capabilities.</div></div>
+          <div class="proj-task"><div class="task-num">5</div><div>Prepare the final business canvas and appendix.</div></div>
+        </div>
+      </div>
+
+      <!-- Unit 5 -->
+      <div id="unit-u5" class="unit-content" style="display:none">
+        <div class="card" style="margin-bottom:10px;border-left:4px solid var(--purple)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+            <div><h3 style="font-size:16px">Unit 5: Personal Goals, Budgeting, and Investing</h3><p style="margin-top:4px;font-size:13px;color:var(--text2)">~24 class periods (+20 optional for additional PF coverage) · Financial Advisor Project</p></div>
+            <span class="badge badge-purple">Not on AP Exam</span>
+          </div>
+        </div>
+        <div class="highlight">Unit 5 is designed to be taught either before or after the AP Exam, as appropriate to a school's calendar. It is not assessed on the multiple-choice section of the exam.</div>
+        <div class="card" style="margin-bottom:10px"><h3>Developing understanding</h3><p style="margin-top:5px">In Unit 5, students connect all the personal finance concepts learned throughout the course — PESTEL and career considerations (U1), consumer decision making (U2), saving/borrowing/investing (U3), earning income (U4) — and explore in greater depth topics such as taxes, risk, and insurance. Students practice interpreting a pay stub, planning a household budget, and analyzing how risk tolerance, time horizon, and spending habits impact long-term financial security.</p></div>
+        <div class="section-head">Topics at a glance</div>
+        <div class="topic-list">
+          <div class="topic-hdr"><div>#</div><div>Topic</div><div>Business case</div><div>Periods</div></div>
+          <div class="topic-row"><div class="t-num">5.1</div><div class="t-name">Taxes, Net Income, and Budgeting</div><div class="t-case">—</div><div class="t-periods">8</div></div>
+          <div class="topic-row"><div class="t-num">5.2</div><div class="t-name">Managing Personal Risk</div><div class="t-case">—</div><div class="t-periods">4</div></div>
+          <div class="topic-row"><div class="t-num">5.3</div><div class="t-name">Saving and Investing for Education, Housing, and Retirement Goals</div><div class="t-case">—</div><div class="t-periods">7</div></div>
+        </div>
+        <p style="font-size:11px;color:var(--text3);margin:-8px 0 16px">+5 periods for culminating Financial Advisor Project event. An additional 20 class periods can be allocated to further personal finance coverage.</p>
+        <div class="section-head">Financial Advisor Project tasks</div>
+        <div class="task-list">
+          <div class="proj-task"><div class="task-num">1</div><div>Identify financial goals for the fictional household.</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Analyze income and spending; interpret a pay stub and create a revised budget.</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Evaluate insurance and risk management needs.</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Evaluate investment, saving, and charitable giving strategies aligned to household goals.</div></div>
+          <div class="proj-task"><div class="task-num" style="background:var(--amber-bg);color:var(--amber-text)">★</div><div><strong>Culminating event:</strong> Advise the clients — present the comprehensive financial plan (3–5 minutes, oral or recorded).</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SKILLS ══ -->
+    <div id="tab-skills" class="panel">
+      <div class="page-title">Course Skills</div>
+      <div class="page-subtitle">All five skill categories with sub-skills verbatim from the CED. Skills are assessed across all exam question types.</div>
+      <div class="highlight">Students should develop all five skill categories throughout the course. Skills are assessed via multiple-choice and free-response questions on the AP Exam.</div>
+      <div class="section-head">Business skills</div>
+      <div class="skill-block">
+        <h4>Skill Category 1 — Concept Application</h4>
+        <div class="desc">Explain business and personal finance concepts, principles, and strategies, and apply them to scenarios.</div>
+        <div class="skill-item"><span class="skill-code">1.A</span><span>Describe business and personal finance concepts, principles, and strategies.</span></div>
+        <div class="skill-item"><span class="skill-code">1.B</span><span>Interpret quantitative and qualitative business and personal financial data, performing calculations as appropriate.</span></div>
+        <div class="skill-item"><span class="skill-code">1.C</span><span>Using business and personal finance concepts and principles, explain how and why businesses and individuals pursue specific goals, strategies, and actions.</span></div>
+      </div>
+      <div class="skill-block" style="border-left-color:var(--teal)">
+        <h4>Skill Category 2 — Entrepreneurship</h4>
+        <div class="desc">Identify a market opportunity, and develop and test a product idea designed to address the opportunity.</div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--teal)">2.A</span><span>Identify a market opportunity (e.g., a customer problem, need, or want) and develop a product idea to address it.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--teal)">2.B</span><span>Formulate and test business hypotheses to iterate and improve on a product idea.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--teal)">2.C</span><span>Explain the desirability, viability, and/or feasibility of a product idea.</span></div>
+      </div>
+      <div class="section-head">Professional &amp; leadership skills</div>
+      <div class="skill-block" style="border-left-color:var(--amber)">
+        <h4>Skill Category 3 — Decision Making</h4>
+        <div class="desc">Describe opportunities or problems, and recommend courses of action to address them.</div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--amber)">3.A</span><span>Describe internal, market, and external factors that affect a business or individual, and explain how and why they create opportunities and/or problems.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--amber)">3.B</span><span>Explain how potential courses of action could capitalize on an opportunity or solve a problem for a business or individual.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--amber)">3.C</span><span>Establish decision-making criteria and use them to systematically evaluate different courses of action a business or individual may take.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--amber)">3.D</span><span>Recommend a decisive course of action for a business or individual, and support the recommendation with persuasive reasoning and evidence.</span></div>
+      </div>
+      <div class="skill-block" style="border-left-color:var(--coral)">
+        <h4>Skill Category 4 — Communication</h4>
+        <div class="desc">Create authentic communications appropriate for a specific audience and purpose.</div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--coral)">4.A</span><span>Present business and personal financial data (e.g., data visualizations and financial statements) in accurate, precise, and accessible formats targeted for a specific audience and purpose.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--coral)">4.B</span><span>Create authentic business communications (e.g., surveys, business canvases, and pitches) that are targeted for a specific audience and purpose.</span></div>
+      </div>
+      <div class="skill-block" style="border-left-color:var(--purple)">
+        <h4>Skill Category 5 — Collaboration</h4>
+        <div class="desc">Work collaboratively with and lead others to accomplish a goal or task.</div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--purple)">5.A</span><span>Develop clear, shared team objectives related to a business task or project consistent with a vision, mission, and/or goals.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--purple)">5.B</span><span>Define clear roles and responsibilities for members of a team working to accomplish a business task or project.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--purple)">5.C</span><span>Develop and implement effective strategies to motivate individuals and teams to achieve goals related to a business task or project.</span></div>
+        <div class="skill-item"><span class="skill-code" style="color:var(--purple)">5.D</span><span>Follow through on agreed-upon deliverables as a part of a team working to accomplish a business task or project.</span></div>
+      </div>
+    </div>
+
+    <!-- ══ PROJECTS ══ -->
+    <div id="tab-projects" class="panel">
+      <div class="page-title">Projects</div>
+      <div class="page-subtitle">The two required through-course projects: Business Canvas Project (Units 1–4) and Financial Advisor Project (Unit 5).</div>
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <button id="pbtn-bcp" onclick="showProj('bcp')" style="padding:7px 18px;font-size:13px;font-weight:600;border-radius:20px;border:1.5px solid var(--blue);background:var(--blue);color:#fff;cursor:pointer;font-family:inherit">Business Canvas Project</button>
+        <button id="pbtn-fap" onclick="showProj('fap')" style="padding:7px 18px;font-size:13px;font-weight:600;border-radius:20px;border:1.5px solid var(--border2);background:none;color:var(--text2);cursor:pointer;font-family:inherit">Financial Advisor Project</button>
+      </div>
+
+      <div id="proj-bcp">
+        <div class="highlight"><strong>The Business Canvas Project runs through Units 1–4.</strong> Students act as entrepreneurs developing a business idea from initial concept through strategic planning. Dedicated class time is required in each unit. Question 1 on the AP Exam (15% weight) is an exam-day validation of students' own Business Canvas Project.</div>
+        <div class="section-head">The 8 canvas elements</div>
+        <div class="canvas-grid">
+          <div class="card"><h3>Customer</h3><p>Identification and validation of a customer problem, need, or want. Who does the business serve?</p></div>
+          <div class="card"><h3>Product</h3><p>The solution developed to address the customer's need. Includes the minimum viable product (MVP).</p></div>
+          <div class="card"><h3>Market</h3><p>The competitive landscape, target market size, and KPIs for market-related goals.</p></div>
+          <div class="card"><h3>Operations</h3><p>Production process, supply chain, and day-to-day running of the business.</p></div>
+          <div class="card"><h3>Organization</h3><p>Business structure, roles and responsibilities, vision and mission statements.</p></div>
+          <div class="card"><h3>Finance / Accounting</h3><p>Startup costs, sources of capital, projected income statement, and financial benchmarks.</p></div>
+          <div class="card"><h3>Value Proposition</h3><p>The core competencies and unique value the business delivers to customers.</p></div>
+          <div class="card"><h3>Revenue</h3><p>How the business generates income; pricing strategy and revenue model.</p></div>
+        </div>
+        <div class="section-head">Deliverables by unit</div>
+        <div class="phase"><div class="phase-head"><span>Unit 1 deliverables</span><span class="badge badge-blue">~12–14 days</span></div><div class="phase-body">
+          <div class="proj-task"><div class="task-num">1</div><div>Customer problem, need, or want — identified and described</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Competitive advantage plan; PESTEL market analysis</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Customer interview results validating the problem/need/want</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Preliminary solution concept</div></div>
+          <div class="proj-task"><div class="task-num">5</div><div>Hypothesis formulation and initial testing plan</div></div>
+          <div class="proj-task"><div class="task-num">6</div><div>Vision and mission statements</div></div>
+          <div class="proj-task"><div class="task-num">7</div><div>Production process and supply chain plan</div></div>
+          <div class="proj-task"><div class="task-num">8</div><div>Final business idea commitment; revised market analysis</div></div>
+        </div></div>
+        <div class="phase"><div class="phase-head"><span>Unit 2 deliverables</span><span class="badge badge-teal">~5–6 days</span></div><div class="phase-body">
+          <div class="proj-task"><div class="task-num">1</div><div>Target customer profile based on market research</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Minimum viable product (MVP) to assess product-market fit</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Pricing hypothesis tested via customer interviews/surveys</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Marketing plan informed by customer research</div></div>
+        </div></div>
+        <div class="phase"><div class="phase-head"><span>Unit 3 deliverables</span><span class="badge badge-amber">~5–6 days</span></div><div class="phase-body">
+          <div class="proj-task"><div class="task-num">1</div><div>Startup costs and initial expenses</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>Potential sources of financial capital identified</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Pitch to prospective lenders or investors</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Projected income statement with revenue projection</div></div>
+        </div></div>
+        <div class="phase"><div class="phase-head"><span>Unit 4 deliverables</span><span class="badge badge-coral">~15–16 days</span></div><div class="phase-body">
+          <div class="proj-task"><div class="task-num">1</div><div>Skills and core competency inventory</div></div>
+          <div class="proj-task"><div class="task-num">2</div><div>KPIs and benchmarks for all four goal categories</div></div>
+          <div class="proj-task"><div class="task-num">3</div><div>Strategic decision using PACED model</div></div>
+          <div class="proj-task"><div class="task-num">4</div><div>Porter's Five Forces and SWOT analysis</div></div>
+          <div class="proj-task"><div class="task-num">5</div><div>Final business canvas and appendix</div></div>
+        </div></div>
+      </div>
+
+      <div id="proj-fap" style="display:none">
+        <div class="highlight"><strong>The Financial Advisor Project is a required culminating project in Unit 5.</strong> Students receive a fictional household financial profile and develop a comprehensive financial plan. Minimum 4 weeks of dedicated class time required (CR11). Not assessed on the AP Exam.</div>
+        <div class="section-head">Comprehensive financial plan — 10 components</div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">A — Executive Summary <span class="acc-arrow">▾</span></button><div class="acc-content"><p>A concise overview of the household's situation, goals, and the advisor's key recommendations. <strong>Skills: 1.C, 4.B</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">B — Client Profile <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Household overview (members, employment, income), short- and long-term financial goals, values and priorities, spending/savings habits, charitable giving, risk tolerance rating and rationale. <strong>Skills: 1.A, 4.B</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">C — Current Financial Position <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Monthly net income, fixed/variable expenses, charitable contributions, savings, surplus/shortage; spending evaluation vs. guidelines; debt overview (balances, rates, payback periods); savings/investment account summary; net worth statement. <strong>Skills: 1.B, 1.C, 3.A, 4.B</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">D — Insurance and Risk Management Plan <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Current insurance coverage review; adequacy assessment (adequate / insufficient / missing); insurance recommendations with budget impact; fraud and consumer protection recommendation. <strong>Skills: 3.A, 3.B, 3.D</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">E — Education Plan <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Education goals overview; estimated cost and time horizon; potential funding sources; recommended monthly savings amount; recommended saving/investment vehicle (e.g., 529 plan, HYSA). <strong>Skills: 3.A, 3.B, 3.D</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">F — Housing Plan <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Housing goal overview; estimated home cost and affordability analysis; comparison to current costs; upfront costs (down payment, moving); recommendation to pursue or defer, supported by at least two numerical comparisons. <strong>Skills: 3.A, 3.B, 3.D</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">G — Retirement and Charitable Giving Plan <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Retirement goal overview; savings estimates at 2%, 5%, 8%, and 10% return scenarios; recommended contribution strategy and vehicle; Social Security claiming age recommendation; charitable giving recommendation aligned to household values and budget. <strong>Skills: 3.A, 3.B, 3.D</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">H — Final Recommended Budget <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Budget overview; monthly budget summary (income, all expense categories, insurance, charitable giving, education and retirement savings contributions, debt payments, surplus/shortage); explanation of notable changes; summary of how budget supports long-term goals. <strong>Skill: 4.A</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">I — Debt Management Plan <span class="acc-arrow">▾</span></button><div class="acc-content"><p>Status quo repayment summary; recommended debt strategy (avalanche, snowball, or consolidation) with rationale and estimated monthly impact; projected benefits; impact on financial stability and progress toward long-term goals, noting trade-offs. <strong>Skill: 3.D</strong></p></div></div>
+        <div class="acc"><button class="acc-btn" onclick="toggleAcc(this)">J — Professional Presentation (Optional/Local) <span class="acc-arrow">▾</span></button><div class="acc-content"><p>3–5 minute oral presentation or recorded pitch summarizing the comprehensive financial plan. Deliverable: oral presentation or recorded pitch (if required by teacher). <strong>Skill: 4.B</strong></p></div></div>
+      </div>
+    </div>
+
+    <!-- ══ EXAM ══ -->
+    <div id="tab-exam" class="panel">
+      <div class="page-title">Exam Information</div>
+      <div class="page-subtitle">Full breakdown of the AP Business with Personal Finance Exam format, section weights, and scoring.</div>
+      <div class="metric-grid">
+        <div class="metric"><div class="label">Total exam time</div><div class="val">2h 40m</div><div class="sub">Section I (70 min) + Section II (90 min)</div></div>
+        <div class="metric"><div class="label">Multiple-choice</div><div class="val">60 Qs</div><div class="sub">70 minutes · 60% of exam score</div></div>
+        <div class="metric"><div class="label">Free-response</div><div class="val">4 Qs</div><div class="sub">90 minutes · 40% of exam score</div></div>
+        <div class="metric"><div class="label">BCP validation (Q1)</div><div class="val">15%</div><div class="sub">Students respond about their own project</div></div>
+      </div>
+      <div class="section-head">Section I: Multiple-choice — unit weightings</div>
+      <table class="tbl">
+        <thead><tr><th>Unit</th><th>Title</th><th>Exam weight</th><th>Visual</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge badge-blue">Unit 1</span></td><td>Businesses, Competition, and New Ideas</td><td>20–30%</td><td><div class="wbar"><div class="wbar-fill" style="width:75%"></div></div></td></tr>
+          <tr><td><span class="badge badge-teal">Unit 2</span></td><td>Marketing</td><td>20–30%</td><td><div class="wbar"><div class="wbar-fill" style="width:75%"></div></div></td></tr>
+          <tr><td><span class="badge badge-amber">Unit 3</span></td><td>Personal Saving &amp; Borrowing + Business Finance &amp; Accounting</td><td>25–35%</td><td><div class="wbar"><div class="wbar-fill" style="width:90%"></div></div></td></tr>
+          <tr><td><span class="badge badge-coral">Unit 4</span></td><td>Management and Strategy</td><td>15–20%</td><td><div class="wbar"><div class="wbar-fill" style="width:55%"></div></div></td></tr>
+          <tr><td><span class="badge badge-purple">Unit 5</span></td><td>Personal Goals, Budgeting, and Investing</td><td colspan="2" style="color:var(--text3);font-size:12px">Not assessed on the AP Exam</td></tr>
+        </tbody>
+      </table>
+      <div class="section-head">Section II: Free-response questions</div>
+      <div class="frq-q hdr"><div>#</div><div>Question type</div><div>Weight</div><div>Time</div></div>
+      <div class="frq-q"><div class="frq-num">1</div><div><strong>Business Canvas Project Exam-Day Validation</strong> — students respond to a prompt about their own BCP</div><div class="frq-wt">15%</div><div class="frq-tm">25 min</div></div>
+      <div class="frq-q"><div class="frq-num">2</div><div><strong>Personal Finance</strong> — applying personal finance concepts to a scenario</div><div class="frq-wt">5%</div><div class="frq-tm" rowspan="3">65 min (Qs 2–4)</div></div>
+      <div class="frq-q"><div class="frq-num">3</div><div><strong>Business Concept Application</strong> — explaining and applying a business concept</div><div class="frq-wt">5%</div><div class="frq-tm"></div></div>
+      <div class="frq-q"><div class="frq-num">4</div><div><strong>Business Decision</strong> — analyzing a business situation and recommending a course of action</div><div class="frq-wt">15%</div><div class="frq-tm"></div></div>
+      <div class="section-head">AP Score scale</div>
+      <table class="tbl">
+        <thead><tr><th>Score</th><th>Recommendation</th><th>College equivalent</th><th>Typical outcome</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600;font-size:15px">5</td><td>Extremely well qualified</td><td>A</td><td style="color:var(--text2)">Credit + placement at most schools</td></tr>
+          <tr><td style="font-weight:600;font-size:15px">4</td><td>Well qualified</td><td>A–, B+, B</td><td style="color:var(--text2)">Credit at most schools</td></tr>
+          <tr><td style="font-weight:600;font-size:15px">3</td><td>Qualified</td><td>B–, C+, C</td><td style="color:var(--text2)">Credit at many schools</td></tr>
+          <tr><td style="font-weight:600;font-size:15px">2</td><td>Possibly qualified</td><td>n/a</td><td style="color:var(--text2)">Varies by institution</td></tr>
+          <tr><td style="font-weight:600;font-size:15px">1</td><td>No recommendation</td><td>n/a</td><td style="color:var(--text2)">No credit</td></tr>
+        </tbody>
+      </table>
+      <div class="card"><h3>AP Career Kickstart credential</h3><p style="margin-top:5px">As an AP Career Kickstart course, students with qualifying AP Exam scores earn an employer-endorsed credential — in addition to potential college credit — that can be listed on résumés and used for internship and employment applications.</p></div>
+    </div>
+
+    <!-- ══ CASES ══ -->
+    <div id="tab-cases" class="panel">
+      <div class="page-title">Business Cases</div>
+      <div class="page-subtitle">All AP-provided cases organized by unit and topic. Cases are required instructionally but will not be directly assessed on the exam.</div>
+      <div class="highlight">Teachers may use their own cases in addition to or in lieu of AP-provided cases. Each AP case includes a recommended opening activity, reading questions, and discussion prompts.</div>
+      <div class="section-head">Unit 1 — Businesses, Competition, and New Ideas</div>
+      <table class="tbl">
+        <thead><tr><th>Case</th><th>Topic</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Bombas</td><td>1.1 — What Is a Business?</td></tr>
+          <tr><td style="font-weight:600">Incredible Health</td><td>1.2 — Markets and Competitive Advantage</td></tr>
+          <tr><td style="font-weight:600">Corley Plumbing</td><td>1.3 — PESTEL Factors and the Business Environment</td></tr>
+          <tr><td style="font-weight:600">Malama ia Floral Design</td><td>1.4 — How Do Business Ideas Originate?</td></tr>
+          <tr><td style="font-weight:600">Beekeeper's Daughter</td><td>1.5 — Vision</td></tr>
+          <tr><td style="font-weight:600">Pearson 1860</td><td>1.7 — Organization, Roles, and Responsibilities</td></tr>
+        </tbody>
+      </table>
+      <div class="section-head">Unit 2 — Marketing</div>
+      <table class="tbl">
+        <thead><tr><th>Case</th><th>Topic</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Token of Trust</td><td>2.1 — Marketing to Customers</td></tr>
+          <tr><td style="font-weight:600">Gong cha</td><td>2.2 — Consumer Behavior</td></tr>
+          <tr><td style="font-weight:600">New Coke</td><td>2.2 — Consumer Behavior</td></tr>
+          <tr><td style="font-weight:600">siggi's</td><td>2.4 — Product</td></tr>
+          <tr><td style="font-weight:600">Sega</td><td>2.5 — Price</td></tr>
+          <tr><td style="font-weight:600">Stanley</td><td>2.6 — Place and Channels</td></tr>
+          <tr><td style="font-weight:600">Hestia Construction</td><td>2.6 — Place and Channels</td></tr>
+        </tbody>
+      </table>
+      <div class="section-head">Unit 3 — Finance and Accounting</div>
+      <table class="tbl">
+        <thead><tr><th>Case</th><th>Topic</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">DK Coffee Lab, Part 1</td><td>3.4 — Business Expenses</td></tr>
+          <tr><td style="font-weight:600">DK Coffee Lab, Part 2</td><td>3.5 — Financial Capital</td></tr>
+          <tr><td style="font-weight:600">Hershey</td><td>3.6 — The Income Statement</td></tr>
+          <tr><td style="font-weight:600">DCH</td><td>3.7 — The Balance Sheet and Net Worth</td></tr>
+          <tr><td style="font-weight:600">DK Coffee Lab, Part 3</td><td>3.7 — The Balance Sheet and Net Worth</td></tr>
+          <tr><td style="font-weight:600">AANE</td><td>3.8 — The Cash Flow Statement</td></tr>
+          <tr><td style="font-weight:600">Yardley</td><td>3.9 — Ethics and Financial Reporting</td></tr>
+        </tbody>
+      </table>
+      <div class="section-head">Unit 4 — Management and Strategy</div>
+      <table class="tbl">
+        <thead><tr><th>Case</th><th>Topic</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">Assort Health</td><td>4.1 — Management and Leadership</td></tr>
+          <tr><td style="font-weight:600">Canva</td><td>4.1 — Management and Leadership</td></tr>
+          <tr><td style="font-weight:600">BREAUX Capital</td><td>4.2 — Evaluating Performance Using KPIs</td></tr>
+          <tr><td style="font-weight:600">ExpressionMed</td><td>4.3 — Strategy and Decision Making</td></tr>
+          <tr><td style="font-weight:600">Crepes &amp; Waffles</td><td>4.4 — Porter's Five Forces and SWOT Analysis</td></tr>
+          <tr><td style="font-weight:600">Square Meal Feeds</td><td>4.4 — Porter's Five Forces and SWOT Analysis</td></tr>
+        </tbody>
+      </table>
+      <div class="section-head">Supplemental college-level resource</div>
+      <div class="card"><h3>Skylight: Hit Product or Scalable Company</h3><p style="margin-top:5px">Koning, Wallace, Huizinga — Harvard Business School, 2025. College-level supplemental resource applicable to Units 1 and 4. Not an AP-provided case; included to meet the college-level rigor requirement (CR1) in the absence of a traditional textbook.</p></div>
+    </div>
+
+    <!-- ══ SEARCH ══ -->
+    <div id="tab-search" class="panel">
+      <div class="page-title">Search</div>
+      <div class="page-subtitle">Find topics, skills, cases, frameworks, and concepts across the entire CED.</div>
+      <div class="search-wrap">
+        <span class="search-icon">⌕</span>
+        <input type="text" id="search-input" placeholder="Try: PESTEL, KPI, skill 3.D, DK Coffee Lab, Porter, 529, FRQ..." oninput="doSearch(this.value)" autocomplete="off" />
+      </div>
+      <div class="search-results" id="search-results"></div>
+      <div class="search-hint" id="search-hint">Try searching for topics, skill codes (1.A, 3.D), case names, or concepts like "income statement", "competitive advantage", or "risk management".</div>
+    </div>
+
+    <div class="footer">AP Business with Personal Finance · CED Navigator · Effective Fall 2026 · Padua Franciscan High School · Built from the College Board Course and Exam Description</div>
+
+  </main>
+</div>
+
+<script>
+const searchIndex=[
+  {t:"What Is a Business? (1.1)",loc:"Unit 1",tab:"units",unit:"u1",kw:"business product service value profit revenue startup entrepreneur"},
+  {t:"Markets and Competitive Advantage (1.2)",loc:"Unit 1",tab:"units",unit:"u1",kw:"market competitive advantage differentiation positioning competitor"},
+  {t:"PESTEL Factors and the Business Environment (1.3)",loc:"Unit 1",tab:"units",unit:"u1",kw:"PESTEL political economic social technological environmental legal external factors"},
+  {t:"How Do Business Ideas Originate? (1.4)",loc:"Unit 1",tab:"units",unit:"u1",kw:"business idea entrepreneur opportunity problem need want innovation"},
+  {t:"Vision (1.5)",loc:"Unit 1",tab:"units",unit:"u1",kw:"vision mission core values core competencies purpose"},
+  {t:"Business Ethics (1.6)",loc:"Unit 1",tab:"units",unit:"u1",kw:"ethics values integrity decision making stakeholders"},
+  {t:"Organization, Roles, and Responsibilities (1.7)",loc:"Unit 1",tab:"units",unit:"u1",kw:"organizational structure roles hierarchy management functional"},
+  {t:"Supply Chains (1.8)",loc:"Unit 1",tab:"units",unit:"u1",kw:"supply chain logistics vendor supplier inventory production"},
+  {t:"Marketing to Customers (2.1)",loc:"Unit 2",tab:"units",unit:"u2",kw:"marketing customer target market segmentation positioning brand"},
+  {t:"Consumer Behavior (2.2)",loc:"Unit 2",tab:"units",unit:"u2",kw:"consumer behavior purchasing decision psychology motivation needs wants"},
+  {t:"Market Research (2.3)",loc:"Unit 2",tab:"units",unit:"u2",kw:"market research survey interview focus group data primary secondary"},
+  {t:"Product (2.4)",loc:"Unit 2",tab:"units",unit:"u2",kw:"product development lifecycle features benefits branding packaging"},
+  {t:"Price (2.5)",loc:"Unit 2",tab:"units",unit:"u2",kw:"price pricing strategy cost markup penetration skimming competitive"},
+  {t:"Place and Channels (2.6)",loc:"Unit 2",tab:"units",unit:"u2",kw:"place distribution channels retail wholesale direct e-commerce logistics"},
+  {t:"Promotion and Marketing Communications (2.9)",loc:"Unit 2",tab:"units",unit:"u2",kw:"promotion advertising social media campaign communication message"},
+  {t:"Saving for Future Purchases (3.1)",loc:"Unit 3 Part 1",tab:"units",unit:"u3",kw:"saving savings account interest emergency fund future purchases goals"},
+  {t:"Borrowing, Credit, and Debt (3.2)",loc:"Unit 3 Part 1",tab:"units",unit:"u3",kw:"borrowing credit debt loan interest rate credit score APR"},
+  {t:"Accounting and Financial Management (3.3)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"accounting financial management bookkeeping records GAAP"},
+  {t:"Business Expenses (3.4)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"expenses costs fixed variable overhead startup costs"},
+  {t:"Financial Capital (3.5)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"financial capital equity debt funding investors lenders venture angel"},
+  {t:"The Income Statement (3.6)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"income statement revenue profit loss P&L gross net operating expenses"},
+  {t:"The Balance Sheet and Net Worth (3.7)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"balance sheet assets liabilities net worth equity"},
+  {t:"The Cash Flow Statement (3.8)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"cash flow statement operating investing financing activities liquidity"},
+  {t:"Ethics and Financial Reporting (3.9)",loc:"Unit 3 Part 2",tab:"units",unit:"u3",kw:"ethics financial reporting fraud transparency accounting standards"},
+  {t:"Management and Leadership (4.1)",loc:"Unit 4",tab:"units",unit:"u4",kw:"management leadership styles motivating teams culture HR"},
+  {t:"Evaluating Performance Using KPIs (4.2)",loc:"Unit 4",tab:"units",unit:"u4",kw:"KPI key performance indicator metrics benchmark performance measurement"},
+  {t:"Strategy and Decision Making (4.3)",loc:"Unit 4",tab:"units",unit:"u4",kw:"strategy decision making PACED model criteria analysis"},
+  {t:"Porter's Five Forces and SWOT (4.4)",loc:"Unit 4",tab:"units",unit:"u4",kw:"Porter five forces SWOT strengths weaknesses opportunities threats competitive rivalry"},
+  {t:"Taxes, Net Income, and Budgeting (5.1)",loc:"Unit 5",tab:"units",unit:"u5",kw:"taxes income tax net income pay stub withholding budget household"},
+  {t:"Managing Personal Risk (5.2)",loc:"Unit 5",tab:"units",unit:"u5",kw:"insurance risk management health auto life disability property coverage"},
+  {t:"Saving and Investing for Education, Housing, and Retirement (5.3)",loc:"Unit 5",tab:"units",unit:"u5",kw:"investing retirement 401k IRA 529 housing mortgage education saving goal compound"},
+  {t:"Skill 1.A — Describe concepts",loc:"Skills",tab:"skills",kw:"skill concept application describe explain principle strategy 1a"},
+  {t:"Skill 1.B — Interpret data",loc:"Skills",tab:"skills",kw:"skill data quantitative qualitative interpret calculate financial 1b"},
+  {t:"Skill 1.C — Explain goals and actions",loc:"Skills",tab:"skills",kw:"skill explain why goal strategy action business individual 1c"},
+  {t:"Skill 2.A — Identify market opportunity",loc:"Skills",tab:"skills",kw:"skill entrepreneurship market opportunity customer problem need want product idea 2a"},
+  {t:"Skill 2.B — Test business hypotheses",loc:"Skills",tab:"skills",kw:"skill hypothesis test iterate MVP minimum viable product market research feedback 2b"},
+  {t:"Skill 2.C — Explain desirability/viability/feasibility",loc:"Skills",tab:"skills",kw:"skill desirability viability feasibility product pitch 2c"},
+  {t:"Skill 3.A — Describe factors",loc:"Skills",tab:"skills",kw:"skill decision making factors internal market external opportunities problems 3a"},
+  {t:"Skill 3.B — Explain courses of action",loc:"Skills",tab:"skills",kw:"skill explain courses of action capitalize solve problem opportunity 3b"},
+  {t:"Skill 3.C — Establish decision criteria",loc:"Skills",tab:"skills",kw:"skill decision criteria evaluate systematically PACED model 3c"},
+  {t:"Skill 3.D — Recommend course of action",loc:"Skills",tab:"skills",kw:"skill recommend decisive action persuasive reasoning evidence justify 3d"},
+  {t:"Skill 4.A — Present business data",loc:"Skills",tab:"skills",kw:"skill communication data visualization financial statements present audience 4a"},
+  {t:"Skill 4.B — Create authentic communications",loc:"Skills",tab:"skills",kw:"skill communication survey canvas pitch audience purpose authentic 4b"},
+  {t:"Skill 5.A — Develop team objectives",loc:"Skills",tab:"skills",kw:"skill collaboration team objectives vision mission goals shared 5a"},
+  {t:"Skill 5.B — Define roles and responsibilities",loc:"Skills",tab:"skills",kw:"skill collaboration roles responsibilities team members 5b"},
+  {t:"Skill 5.C — Motivate teams",loc:"Skills",tab:"skills",kw:"skill collaboration motivate individuals teams strategies goals 5c"},
+  {t:"Skill 5.D — Follow through on deliverables",loc:"Skills",tab:"skills",kw:"skill collaboration deliverables follow through team project 5d"},
+  {t:"Business Canvas Project",loc:"Projects",tab:"projects",proj:"bcp",kw:"business canvas project BCP entrepreneurship deliverables unit 1 2 3 4"},
+  {t:"Financial Advisor Project",loc:"Projects",tab:"projects",proj:"fap",kw:"financial advisor project FAP household budget retirement insurance education 529"},
+  {t:"AP Exam overview",loc:"Exam",tab:"exam",kw:"exam multiple choice free response FRQ sections timing weight score 2h40"},
+  {t:"FRQ Q1 — BCP Validation (15%)",loc:"Exam",tab:"exam",kw:"FRQ free response question 1 business canvas project validation 15 percent exam"},
+  {t:"FRQ Q4 — Business Decision (15%)",loc:"Exam",tab:"exam",kw:"FRQ free response question 4 business decision 15 percent recommend"},
+  {t:"Bombas (Unit 1 — 1.1)",loc:"Cases",tab:"cases",kw:"Bombas socks social enterprise business case unit 1"},
+  {t:"DK Coffee Lab Parts 1, 2, 3 (Unit 3)",loc:"Cases",tab:"cases",kw:"DK Coffee Lab case business expenses financial capital balance sheet unit 3"},
+  {t:"Square Meal Feeds (Unit 4 — 4.4)",loc:"Cases",tab:"cases",kw:"Square Meal Feeds SWOT Porter strategy unit 4 decision"},
+  {t:"Canva (Unit 4 — 4.1)",loc:"Cases",tab:"cases",kw:"Canva management leadership unit 4"},
+  {t:"Skylight — HBS supplemental case",loc:"Cases",tab:"cases",kw:"Skylight Harvard Business School HBS supplemental case"},
+  {t:"PACED decision-making model",loc:"Unit 4 / Skills",tab:"units",unit:"u4",kw:"PACED decision model criteria options pros cons evaluate strategy"},
+  {t:"MVP — minimum viable product",loc:"Unit 2 / Projects",tab:"projects",proj:"bcp",kw:"MVP minimum viable product testing hypothesis customer feedback iterate"},
+  {t:"Porter's Five Forces",loc:"Unit 4",tab:"units",unit:"u4",kw:"Porter five forces competitive threat rivalry substitutes buyers suppliers bargaining"},
+  {t:"SWOT Analysis",loc:"Unit 4",tab:"units",unit:"u4",kw:"SWOT strengths weaknesses opportunities threats strategic framework"},
+  {t:"Income statement",loc:"Unit 3",tab:"units",unit:"u3",kw:"income statement revenue expenses profit loss P&L financial statement"},
+  {t:"Balance sheet",loc:"Unit 3",tab:"units",unit:"u3",kw:"balance sheet assets liabilities equity net worth financial statement"},
+  {t:"Cash flow statement",loc:"Unit 3",tab:"units",unit:"u3",kw:"cash flow statement operating financing investing liquidity"},
+  {t:"Net worth",loc:"Unit 3 / Unit 5",tab:"units",unit:"u3",kw:"net worth assets liabilities balance sheet personal finance"},
+  {t:"529 plan",loc:"Unit 5",tab:"units",unit:"u5",kw:"529 education savings plan college tax-advantaged postsecondary"},
+  {t:"401(k) / IRA — retirement accounts",loc:"Unit 5",tab:"units",unit:"u5",kw:"retirement 401k IRA investment account tax deferred employer match"},
+  {t:"Credit score",loc:"Unit 3",tab:"units",unit:"u3",kw:"credit score FICO borrowing debt interest rate APR loan"},
+];
+
+function doSearch(q){
+  const r=document.getElementById('search-results');
+  const hint=document.getElementById('search-hint');
+  if(!q.trim()){r.style.display='none';hint.style.display='block';return;}
+  hint.style.display='none';
+  const terms=q.toLowerCase().split(' ').filter(Boolean);
+  const hits=searchIndex.filter(x=>{
+    const hay=(x.t+' '+x.loc+' '+x.kw).toLowerCase();
+    return terms.every(t=>hay.includes(t));
+  }).slice(0,14);
+  if(!hits.length){
+    r.innerHTML='<div class="search-item"><div class="s-title" style="color:var(--text3)">No results found.</div><div class="s-loc">Try different keywords or browse the tabs above.</div></div>';
+    r.style.display='block';return;
+  }
+  r.innerHTML=hits.map(h=>`<div class="search-item" onclick="goTo('${h.tab}','${h.unit||''}','${h.proj||''}')"><div class="s-title">${h.t}</div><div class="s-loc">${h.loc}</div></div>`).join('');
+  r.style.display='block';
+}
+
+function goTo(tab,unit,proj){
+  showTab(tab);
+  if(unit)showUnit(unit);
+  if(proj)showProj(proj);
+  document.getElementById('search-results').style.display='none';
+  document.getElementById('search-input').value='';
+  document.getElementById('search-hint').style.display='block';
+  window.scrollTo(0,0);
+}
+
+function showTab(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  const map={overview:0,units:1,skills:2,projects:3,exam:4,cases:5,search:6};
+  const btns=document.querySelectorAll('.nav-btn');
+  if(map[id]!==undefined&&btns[map[id]])btns[map[id]].classList.add('active');
+  // mobile nav
+  const mbtns=document.querySelectorAll('.mobile-nav button');
+  mbtns.forEach(b=>b.classList.remove('active'));
+  if(map[id]!==undefined&&mbtns[map[id]])mbtns[map[id]].classList.add('active');
+}
+
+function showUnit(id){
+  document.querySelectorAll('.unit-content').forEach(u=>u.style.display='none');
+  document.getElementById('unit-'+id).style.display='block';
+  const colors={u1:['var(--blue-bg)','var(--blue-text)','var(--blue)'],u2:['var(--teal-bg)','var(--teal-text)','var(--teal)'],u3:['var(--amber-bg)','var(--amber-text)','var(--amber)'],u4:['var(--coral-bg)','var(--coral-text)','var(--coral)'],u5:['var(--purple-bg)','var(--purple-text)','var(--purple)']};
+  ['u1','u2','u3','u4','u5'].forEach(u=>{
+    const btn=document.getElementById('utab-'+u);
+    if(!btn)return;
+    if(u===id){btn.style.background=colors[u][0];btn.style.color=colors[u][1];btn.style.borderColor=colors[u][2];}
+    else{btn.style.background='none';btn.style.color=colors[u][2];btn.style.borderColor=colors[u][0];}
+  });
+}
+
+function showProj(id){
+  document.getElementById('proj-bcp').style.display=id==='bcp'?'block':'none';
+  document.getElementById('proj-fap').style.display=id==='fap'?'block':'none';
+  const bcp=document.getElementById('pbtn-bcp');
+  const fap=document.getElementById('pbtn-fap');
+  if(id==='bcp'){
+    bcp.style.background='var(--blue)';bcp.style.color='#fff';bcp.style.borderColor='var(--blue)';
+    fap.style.background='none';fap.style.color='var(--text2)';fap.style.borderColor='var(--border2)';
+  } else {
+    fap.style.background='var(--blue)';fap.style.color='#fff';fap.style.borderColor='var(--blue)';
+    bcp.style.background='none';bcp.style.color='var(--text2)';bcp.style.borderColor='var(--border2)';
+  }
+}
+
+function toggleAcc(btn){
+  const c=btn.nextElementSibling;
+  c.classList.toggle('open');
+  btn.querySelector('.acc-arrow').style.transform=c.classList.contains('open')?'rotate(180deg)':'';
+}
+</script>
+</body>
+</html>
